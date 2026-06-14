@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ProdeCard from './ProdeCard';
-import { getAllPlayers } from '../lib/players';
+import { getPlayerSuggestions } from '../lib/players';
 
 const FINAL_CATEGORIES = [
   { key: 'champion', label: '🥇 Campeón', points: 10 },
@@ -10,7 +10,7 @@ const FINAL_CATEGORIES = [
   { key: 'top_scorer', label: '⚽ Goleador', points: 5 },
 ];
 
-const ALL_PLAYERS = getAllPlayers();
+const ALL_PLAYERS_GROUPED = getPlayerSuggestions();
 
 export default function Prode({
   active,
@@ -151,20 +151,23 @@ export default function Prode({
                 <label className="final-label">
                   ⚽ Goleador <span className="final-points">(5 pts)</span>
                 </label>
-                <input
-                  type="text"
+                <select
                   value={userFinal.top_scorer || ''}
                   onChange={(e) => onFinalPredict('top_scorer', e.target.value)}
                   disabled={finalLocked}
                   className={finalLocked ? 'final-select--locked' : ''}
-                  placeholder="Escribí el nombre de un jugador..."
-                  list="top-scorers-list"
-                />
-                <datalist id="top-scorers-list">
-                  {ALL_PLAYERS.map((player) => (
-                    <option key={player} value={player} />
+                >
+                  <option value="">— Sin elegir —</option>
+                  {ALL_PLAYERS_GROUPED.map((group) => (
+                    <optgroup key={group.team} label={group.team}>
+                      {group.players.map((player) => (
+                        <option key={player} value={player}>
+                          {player}
+                        </option>
+                      ))}
+                    </optgroup>
                   ))}
-                </datalist>
+                </select>
               </div>
             </div>
           </div>
