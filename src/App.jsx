@@ -146,7 +146,7 @@ export default function App() {
 
   const allTeams = useMemo(() => getAllTeams(matches), [matches]);
   const finalLocked = useMemo(
-    () => matches.some((m) => m.status === 'LIVE' || m.status === 'FINISHED'),
+    () => matches.some((m) => m.stage !== 'Grupos' && (m.status === 'LIVE' || m.status === 'FINISHED')),
     [matches],
   );
   const finalPointsMap = useMemo(
