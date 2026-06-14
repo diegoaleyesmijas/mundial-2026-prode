@@ -1,0 +1,16 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/liga/:path*",
+      "destination": "/index.html"
+    }
+  ],
+  "functions": {
+    "api/football-data/matches.js": {
+      "maxDuration": 10
+    }
+  }
+}
