@@ -10,6 +10,7 @@ const FINAL_POINTS = {
   runner_up: 6,
   third_place: 4,
   fourth_place: 2,
+  top_scorer: 5,
 };
 
 export function computeLeagueRanking(matches, predictions, members) {
@@ -57,6 +58,7 @@ export function computeFinalPredictionPoints(finalPredictions, members) {
       runner_up: userFinal.runner_up || null,
       third_place: userFinal.third_place || null,
       fourth_place: userFinal.fourth_place || null,
+      top_scorer: userFinal.top_scorer || null,
     };
     const selections = Object.values(picks).filter(Boolean).length;
     result[member] = {

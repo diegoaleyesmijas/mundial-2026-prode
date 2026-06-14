@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import ProdeCard from './ProdeCard';
+import { getAllPlayers } from '../lib/players';
 
 const FINAL_CATEGORIES = [
   { key: 'champion', label: '🥇 Campeón', points: 10 },
   { key: 'runner_up', label: '🥈 Subcampeón', points: 6 },
   { key: 'third_place', label: '🥉 Tercer puesto', points: 4 },
   { key: 'fourth_place', label: '4️⃣ Cuarto puesto', points: 2 },
+  { key: 'top_scorer', label: '⚽ Goleador', points: 5 },
 ];
+
+const ALL_PLAYERS = getAllPlayers();
 
 export default function Prode({
   active,
@@ -113,7 +117,7 @@ export default function Prode({
                 ? ' Las predicciones finales están bloqueadas.'
                 : ' Podés cambiarlas hasta que termine el torneo.'}
             </p>
-            <p className="final-total-max">Puntos posibles: 22 extra (campeón 10, subcampeón 6, tercero 4, cuarto 2)</p>
+            <p className="final-total-max">Puntos posibles: 27 extra (campeón 10, subcampeón 6, tercero 4, cuarto 2, goleador 5)</p>
 
             {hasDuplicates && (
               <div className="final-warning">
@@ -122,7 +126,7 @@ export default function Prode({
             )}
 
             <div className="final-grid">
-              {FINAL_CATEGORIES.map((cat) => (
+              {FINAL_CATEGORIES.filter((cat) => cat.key !== 'top_scorer').map((cat) => (
                 <div key={cat.key} className="final-field">
                   <label className="final-label">
                     {cat.label} <span className="final-points">({cat.points} pts)</span>
@@ -142,6 +146,26 @@ export default function Prode({
                   </select>
                 </div>
               ))}
+
+              <div className="final-field final-field--scorer">
+                <label className="final-label">
+                  ⚽ Goleador <span className="final-points">(5 pts)</span>
+                </label>
+                <input
+                  type="text"
+                  value={userFinal.top_scorer || ''}
+                  onChange={(e) => onFinalPredict('top_scorer', e.target.value)}
+                  disabled={finalLocked}
+                  className={finalLocked ? 'final-select--locked' : ''}
+                  placeholder="Escribí el nombre de un jugador..."
+                  list="top-scorers-list"
+                />
+                <datalist id="top-scorers-list">
+                  {ALL_PLAYERS.map((player) => (
+                    <option key={player} value={player} />
+                  ))}
+                </datalist>
+              </div>
             </div>
           </div>
 

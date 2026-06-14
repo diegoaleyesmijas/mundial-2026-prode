@@ -1438,7 +1438,8 @@ input:focus {
   font-weight: 400;
 }
 
-.final-field select {
+.final-field select,
+.final-field input {
   padding: 0.75rem 1rem;
   border-radius: 12px;
   border: 1px solid var(--border);
@@ -1446,19 +1447,28 @@ input:focus {
   color: var(--text-primary);
   font-size: 0.9rem;
   cursor: pointer;
-  appearance: auto;
   outline: none;
   transition: border-color 0.2s ease;
 }
 
-.final-field select:focus {
+.final-field select {
+  appearance: auto;
+}
+
+.final-field select:focus,
+.final-field input:focus {
   border-color: var(--gold);
   box-shadow: 0 0 0 2px rgba(201, 160, 32, 0.15);
 }
 
-.final-field select:disabled {
+.final-field select:disabled,
+.final-field input:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.final-field--scorer {
+  grid-column: 1 / -1;
 }
 
 .final-select--locked {
