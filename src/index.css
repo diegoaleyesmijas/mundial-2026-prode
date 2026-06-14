@@ -426,8 +426,26 @@ input:focus {
 
 .country-flag {
   width: 1.35rem;
+  height: 1.35rem;
   display: inline-flex;
   justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  font-size: 1.1rem;
+}
+
+.team-crest {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 2px;
+}
+
+.team-name-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
 }
 
 .vs-block {
@@ -1698,11 +1716,18 @@ input:focus {
   }
 
   .match-teams {
-    gap: 0.5rem;
+    gap: 0.35rem;
   }
 
   .team-name {
     font-size: 0.82rem;
+    gap: 0.3rem;
+  }
+
+  .country-flag {
+    width: 1.1rem;
+    height: 1.1rem;
+    font-size: 0.9rem;
   }
 
   .match-score {
@@ -1722,7 +1747,7 @@ input:focus {
   }
 
   .participants-row {
-    min-width: 480px;
+    min-width: 380px;
   }
 
   .ranking-row {
@@ -1862,7 +1887,18 @@ input:focus {
   }
 
   .country-flag {
-    width: 0.9rem;
+    width: 0.85rem;
+    height: 0.85rem;
+    font-size: 0.7rem;
+  }
+
+  .team-name {
+    font-size: 0.68rem;
+    gap: 0.2rem;
+  }
+
+  .match-teams {
+    gap: 0.2rem;
   }
 
   .prediction-btn {

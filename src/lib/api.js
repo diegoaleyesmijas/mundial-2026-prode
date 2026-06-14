@@ -281,6 +281,8 @@ function mapToMatchModel(item) {
     away: awayName,
     homeFlag: getFlagForTeam(homeName),
     awayFlag: getFlagForTeam(awayName),
+    homeCrest: item.homeTeam?.crest || item.home_team?.crest || null,
+    awayCrest: item.awayTeam?.crest || item.away_team?.crest || null,
     utcDate: item.date || item.utcDate || item.utc_date || item.datetime || null,
     status: getStatusLabel(item.status),
     homeScore:

@@ -18,8 +18,14 @@ export default function MatchCard({ match, timezone }) {
       <div className="match-teams">
         <div className="team">
           <div className="team-name">
-            <span className="country-flag">{match.homeFlag || getFlagForTeam(match.home)}</span>
-            {match.home}
+            <span className="country-flag">
+              {match.homeCrest ? (
+                <img src={match.homeCrest} alt={match.home} className="team-crest" loading="lazy" />
+              ) : (
+                match.homeFlag || getFlagForTeam(match.home)
+              )}
+            </span>
+            <span className="team-name-text">{match.home}</span>
           </div>
         </div>
         <div className="vs-block">
@@ -33,8 +39,14 @@ export default function MatchCard({ match, timezone }) {
         </div>
         <div className="team team-right">
           <div className="team-name">
-            <span className="country-flag">{match.awayFlag || getFlagForTeam(match.away)}</span>
-            {match.away}
+            <span className="country-flag">
+              {match.awayCrest ? (
+                <img src={match.awayCrest} alt={match.away} className="team-crest" loading="lazy" />
+              ) : (
+                match.awayFlag || getFlagForTeam(match.away)
+              )}
+            </span>
+            <span className="team-name-text">{match.away}</span>
           </div>
         </div>
       </div>
