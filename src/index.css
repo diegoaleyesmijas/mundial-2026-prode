@@ -256,6 +256,24 @@ input {
   padding: 2rem 1rem;
   text-align: center;
   color: var(--gris);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.loader::before {
+  content: '';
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(201, 162, 39, 0.2);
+  border-top-color: var(--dorado);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .match-card {
@@ -655,7 +673,6 @@ input {
   grid-template-columns: 38px minmax(9rem, 1fr) repeat(3, minmax(4.2rem, auto));
   align-items: center;
   gap: 0.75rem;
-  min-width: 520px;
   padding: 0.85rem 1rem;
   border-radius: 16px;
   color: var(--blanco);
@@ -1302,12 +1319,6 @@ input {
   color: var(--dorado-claro) !important;
 }
 
-@media (max-width: 720px) {
-  .final-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 .member-pill--me {
   background: rgba(201, 162, 39, 0.12) !important;
   border-color: rgba(201, 162, 39, 0.3) !important;
@@ -1339,7 +1350,34 @@ input {
     padding: 0.75rem;
   }
 
-  .header-top,
+  .app-header {
+    padding: 0.75rem 0.75rem 0.5rem;
+    border-radius: 18px;
+  }
+
+  .header-top {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .header-title {
+    font-size: 1.1rem;
+  }
+
+  .header-sub {
+    font-size: 0.65rem;
+  }
+
+  .user-badge {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.7rem;
+  }
+
   .panel-header,
   .prode-header,
   .share-section {
@@ -1348,16 +1386,22 @@ input {
   }
 
   .tabs {
-    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 0.35rem;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.25rem;
+  }
+
+  .tab {
+    flex: 0 0 auto;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.72rem;
+    white-space: nowrap;
   }
 
   .form-row {
     grid-template-columns: 1fr;
-  }
-
-  .match-card__header {
-    flex-direction: column;
-    align-items: stretch;
   }
 
   .match-grid,
@@ -1365,12 +1409,128 @@ input {
     grid-template-columns: 1fr;
   }
 
+  .match-teams {
+    gap: 0.5rem;
+  }
+
+  .team-name {
+    font-size: 0.82rem;
+  }
+
+  .match-score {
+    font-size: 1.1rem;
+  }
+
+  .match-card {
+    padding: 0.9rem;
+  }
+
+  .participants-table {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -0.5rem;
+    padding: 0 0.5rem;
+  }
+
+  .participants-row {
+    min-width: 480px;
+  }
+
   .ranking-row {
-    grid-template-columns: 36px 1fr;
+    grid-template-columns: 30px 1fr;
+    gap: 0.5rem;
+    padding: 0.7rem 0.8rem;
+  }
+
+  .rank-pos {
+    font-size: 0.85rem;
+  }
+
+  .rank-name strong {
+    font-size: 0.85rem;
   }
 
   .rank-pts {
+    font-size: 1rem;
     justify-self: end;
+  }
+
+  .admin-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .admin-stat {
+    padding: 0.5rem;
+  }
+
+  .admin-stat-value {
+    font-size: 1.2rem;
+  }
+
+  .admin-stat-label {
+    font-size: 0.62rem;
+  }
+
+  .admin-add-form {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-header-login {
+    margin-right: 0;
+    width: 100%;
+    order: 10;
+  }
+
+  .admin-pin-inline {
+    flex: 1;
+    width: 100%;
+  }
+
+  .admin-pin-inline input {
+    flex: 1;
+    width: auto;
+  }
+
+  .panel,
+  .section {
+    padding: 0.9rem;
+    border-radius: 18px;
+  }
+
+  .prode-card {
+    padding: 0.85rem;
+  }
+
+  .prode-option {
+    font-size: 0.72rem;
+    padding: 0.75rem 0.5rem;
+    min-height: 40px;
+  }
+
+  .guide-banner {
+    padding: 0.75rem 1rem;
+  }
+
+  .final-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .share-row {
+    grid-template-columns: 1fr;
+  }
+
+  .members-grid {
+    gap: 0.5rem;
+  }
+
+  .member-pill {
+    font-size: 0.78rem;
+    padding: 0.5rem 0.8rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
   }
 }
 
@@ -1531,4 +1691,54 @@ input {
   margin-right: 0.5rem;
   display: inline-flex;
   align-items: center;
+}
+
+@media (max-width: 400px) {
+  .app-shell {
+    padding: 0.5rem;
+  }
+
+  .app-header {
+    padding: 0.5rem 0.5rem 0.4rem;
+    border-radius: 14px;
+  }
+
+  .header-title {
+    font-size: 0.95rem;
+  }
+
+  .logo {
+    width: 30px;
+    height: 30px;
+  }
+
+  .team-name {
+    font-size: 0.72rem;
+  }
+
+  .match-score {
+    font-size: 1rem;
+  }
+
+  .panel,
+  .section {
+    padding: 0.75rem;
+    border-radius: 16px;
+  }
+
+  .country-flag {
+    width: 1rem;
+  }
+
+  .prediction-btn {
+    padding: 0.7rem 0.5rem;
+    font-size: 0.75rem;
+    min-height: 36px;
+  }
+
+  .prode-option {
+    font-size: 0.65rem;
+    padding: 0.6rem 0.4rem;
+    min-height: 34px;
+  }
 }

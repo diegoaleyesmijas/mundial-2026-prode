@@ -19,6 +19,7 @@ export default function Prode({
   onFinalPredict,
   timezone,
   disabled,
+  loading,
   finalLocked,
   leagueId,
 }) {
@@ -82,7 +83,7 @@ export default function Prode({
       </div>
 
       {matches.length === 0 ? (
-        <div className="loader">Cargando partidos...</div>
+        <div className="loader">{loading ? 'Cargando partidos...' : 'Aún no hay partidos disponibles para el Mundial 2026.'}</div>
       ) : (
         <>
           {/* Final Predictions */}

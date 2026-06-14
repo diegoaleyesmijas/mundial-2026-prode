@@ -99,15 +99,20 @@ export default function App() {
   useEffect(() => {
     let active = true;
     async function refresh() {
-      setLoading(true);
-      const liveMatches = await fetchFixture();
-      if (!active) return;
-      setMatches(liveMatches);
-      setGroupTables(computeGroupTables(liveMatches));
-      const scorers = await fetchTopScorers();
-      if (!active) return;
-      setTopScorers(scorers);
-      setLoading(false);
+      try {
+        setLoading(true);
+        const liveMatches = await fetchFixture();
+        if (!active) return;
+        setMatches(liveMatches);
+        setGroupTables(computeGroupTables(liveMatches));
+        const scorers = await fetchTopScorers();
+        if (!active) return;
+        setTopScorers(scorers);
+      } catch (e) {
+        console.warn('Error al refrescar datos:', e);
+      } finally {
+        if (active) setLoading(false);
+      }
     }
     refresh();
     const interval = setInterval(refresh, 60000);
@@ -431,6 +436,7 @@ export default function App() {
               onFinalPredict={handleFinalPredict}
               timezone={timezone}
               disabled={false}
+              loading={loading}
               finalLocked={finalLocked}
               leagueId={leagueId}
             />
