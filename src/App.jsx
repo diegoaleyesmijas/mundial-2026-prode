@@ -41,6 +41,7 @@ export default function App() {
   const [groupTables, setGroupTables] = useState([]);
   const [topScorers, setTopScorers] = useState([]);
   const [adminVerified, setAdminVerified] = useState(false);
+  const [apiError, setApiError] = useState(null);
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const [activeTab, setActiveTab] = useState('PRODE');
 
@@ -98,9 +99,11 @@ export default function App() {
 
   useEffect(() => {
     let active = true;
+    let retryCount = 0;
     async function refresh() {
       try {
         setLoading(true);
+        setApiError(null);
         const liveMatches = await fetchFixture();
         if (!active) return;
         setMatches(liveMatches);
@@ -109,7 +112,10 @@ export default function App() {
         if (!active) return;
         setTopScorers(scorers);
       } catch (e) {
-        console.warn('Error al refrescar datos:', e);
+        if (!active) return;
+        const msg = e instanceof Error ? e.message : String(e);
+        setApiError(msg);
+        console.error('Error al refrescar datos:', msg);
       } finally {
         if (active) setLoading(false);
       }
@@ -118,6 +124,25 @@ export default function App() {
     const interval = setInterval(refresh, 60000);
     return () => { active = false; clearInterval(interval); };
   }, []);
+
+  function handleRetry() {
+    setApiError(null);
+    setLoading(true);
+    (async () => {
+      try {
+        const liveMatches = await fetchFixture();
+        setMatches(liveMatches);
+        setGroupTables(computeGroupTables(liveMatches));
+        const scorers = await fetchTopScorers();
+        setTopScorers(scorers);
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : String(e);
+        setApiError(msg);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }
 
   const allTeams = useMemo(() => getAllTeams(matches), [matches]);
   const finalLocked = useMemo(
@@ -437,6 +462,8 @@ export default function App() {
               timezone={timezone}
               disabled={false}
               loading={loading}
+              apiError={apiError}
+              onRetry={handleRetry}
               finalLocked={finalLocked}
               leagueId={leagueId}
             />

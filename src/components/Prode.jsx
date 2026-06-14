@@ -20,6 +20,8 @@ export default function Prode({
   timezone,
   disabled,
   loading,
+  apiError,
+  onRetry,
   finalLocked,
   leagueId,
 }) {
@@ -83,7 +85,23 @@ export default function Prode({
       </div>
 
       {matches.length === 0 ? (
-        <div className="loader">{loading ? 'Cargando partidos...' : 'Aún no hay partidos disponibles para el Mundial 2026.'}</div>
+        <div className="loader">
+          {loading ? (
+            'Cargando partidos...'
+          ) : apiError ? (
+            <>
+              <span className="loader-icon">⚠️</span>
+              <span>No se pudieron cargar los partidos.</span>
+              <span className="loader-detail">{apiError}</span>
+              <span className="loader-sub">Reintentando automáticamente cada 60 segundos...</span>
+              <button className="btn btn-primary" type="button" onClick={onRetry}>
+                Reintentar ahora
+              </button>
+            </>
+          ) : (
+            'Aún no hay partidos disponibles para el Mundial 2026.'
+          )}
+        </div>
       ) : (
         <>
           {/* Final Predictions */}

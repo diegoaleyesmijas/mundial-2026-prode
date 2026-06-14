@@ -233,8 +233,8 @@ export async function fetchFixture() {
 
     return items;
   } catch (error) {
-    console.warn('No se pudo cargar la API de football-data.org. No se cargan partidos ficticios.', error);
-    return [];
+    console.error('Error al obtener fixture de football-data.org:', error);
+    throw error;
   }
 }
 
