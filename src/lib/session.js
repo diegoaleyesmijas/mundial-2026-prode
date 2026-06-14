@@ -26,12 +26,8 @@ export function slugify(value) {
     .slice(0, 20);
 }
 
-export function buildLeagueLink(leagueId, userName) {
-  const base = `${window.location.origin}/liga/${leagueId}`;
-  if (userName) {
-    return `${base}/${slugify(userName)}`;
-  }
-  return base;
+export function buildLeagueLink(leagueId) {
+  return `${window.location.origin}/liga/${leagueId}`;
 }
 
 const SESSION_PREFIX = 'mundial2026_session_';

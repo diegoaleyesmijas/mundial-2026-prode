@@ -161,8 +161,8 @@ export default function App() {
 
   const leagueLink = useMemo(() => {
     if (!leagueId || leagueExists === false) return '';
-    return buildLeagueLink(leagueId, userName);
-  }, [leagueId, userName, leagueExists]);
+    return buildLeagueLink(leagueId);
+  }, [leagueId, leagueExists]);
 
   const visibleMatches = useMemo(() => {
     if (filter === 'TODAY') {
